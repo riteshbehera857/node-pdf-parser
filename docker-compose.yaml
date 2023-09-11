@@ -1,0 +1,47 @@
+version: '3.9'
+services:
+  # mjunctionmongodb:
+  #   image: mongo:6-jammy
+  #   container_name: mjunction-mongodb
+  #   restart: always
+  #   ports:
+  #     - 27017:27017
+  #   volumes:
+  #     - ./data:/data/db
+  #   networks:
+  #     - mjunction
+  # client:
+  #   build:
+  #     context: './client'
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - 3000:3000
+  #   container_name: lip-client
+  #   env_file:
+  #     - ./client/.env
+  #   networks:
+  #     - lip-network
+  #   volumes:
+  #     - ./client:/app
+  #     - /app/node_modules
+  #   depends_on:
+  #     - server
+  server:
+    build:
+      context: './server'
+      dockerfile: Dockerfile
+    ports:
+      - 5050:5050
+    container_name: server
+    env_file:
+      - ./server/.env
+    networks:
+      - mjunction
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+    # depends_on:
+    #   - mjunctionmongodb
+networks:
+  mjunction:
+    
