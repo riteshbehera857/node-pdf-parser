@@ -1,17 +1,20 @@
 import { MONGO_URI, PORT, app } from ".";
 
-import mongoose from "mongoose";
+import { Sequelize } from "sequelize";
 
-const DB = MONGO_URI!.replace("<PASSWORD>", process.env.MONGO_PASS!);
+const sequelize = new Sequelize("mjuntion", "admin", "admin", {
+  host: "localhost",
+  dialect: "postgres",
+});
 
-mongoose
-  .connect(DB!)
-  .then((conn) => {
-    console.log("Database connected to:", conn.connection.host);
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log("Connection has been established successfully.");
     app.listen(PORT, () => {
-      console.log("🚀 Server is running on port", PORT);
+      console.log("🚀 Server is running on port:", PORT);
     });
   })
-  .catch((err) => {
-    console.log(`Error: ${err}`);
-  });
+  .catch((err) => console.log("🔴 Error:", err));
+
+export { sequelize };
