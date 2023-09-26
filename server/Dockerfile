@@ -1,14 +1,11 @@
 FROM node:18-alpine
 
-RUN npm i -g pnpm
-
 WORKDIR /app
 
-COPY ./package.json ./
-COPY ./pnpm-lock.yaml ./
+COPY ["package.json", "package-lock.json", "tsconfig.json", ".env", "./"]
 
-RUN pnpm install
+RUN npm install
 
 COPY . .
 
-CMD ["pnpm", "dev"]
+CMD ["npm", "run", "dev"]

@@ -1,15 +1,16 @@
 version: '3.9'
 services:
-  # mjunctionmongodb:
-  #   image: mongo:6-jammy
-  #   container_name: mjunction-mongodb
-  #   restart: always
-  #   ports:
-  #     - 27017:27017
-  #   volumes:
-  #     - ./data:/data/db
-  #   networks:
-  #     - mjunction
+  database:
+    image: postgres
+    container_name: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+      - ./data:/data/db
+    environment:
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
   # client:
   #   build:
   #     context: './client'

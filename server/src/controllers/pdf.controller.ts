@@ -7,10 +7,15 @@ import { pdfTextExtractor } from "../services/pdfService";
 
 // import { sequelize } from "../server";
 
-const sequelize = new Sequelize("mjuntion", "admin", "admin", {
-  host: "localhost",
-  dialect: "postgres",
-});
+const sequelize = new Sequelize(
+  process.env.DB_NAME!,
+  "admin",
+  process.env.DB_PASSWORD,
+  {
+    host: "localhost",
+    dialect: "postgres",
+  }
+);
 
 export const getPdfData = catchAsync(
   async (
